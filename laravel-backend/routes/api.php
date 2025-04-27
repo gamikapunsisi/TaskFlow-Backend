@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController; // <-- Add this line
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\TaskController; // <-- Add this line
+use App\Http\Controllers\BidController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Add this route to handle user registration
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
+
+// Task Routes
+Route::post('/tasks', [TaskController::class, 'store']); // client posts
+Route::get('/tasks', [TaskController::class, 'index']);  // taskers view
+
+// Bid Routes
+Route::post('/tasks/{task}/bids', [BidController::class, 'store']); // tasker bids
+Route::get('/tasks/{task}/bids', [BidController::class, 'index']); // client sees bids
